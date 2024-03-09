@@ -19,8 +19,20 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    // SPRING
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
+
+    // DB
+    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.10.1")
+
+    // OTHERS
+    implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
+
+    // TEST
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
 
