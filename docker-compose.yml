@@ -9,6 +9,6 @@ services:
       options:
         max-size: 1g
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=<>
-      - MONGO_INITDB_ROOT_PASSWORD=<>
+      - MONGO_INITDB_ROOT_USERNAME=oslyk
+      - MONGO_INITDB_ROOT_PASSWORD=oslyk
     image: mongo

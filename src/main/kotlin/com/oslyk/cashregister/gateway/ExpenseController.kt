@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 
 @RestController
 @RequestMapping("/api/expense")
@@ -24,7 +25,7 @@ class ExpenseController(@Autowired
     }
 
     @GetMapping
-    fun getAllExpense():ResponseEntity<List<Expense>>
+    fun getAllExpense(): ResponseEntity<List<Expense>>
         = ResponseEntity.ok(expenseService.getAllExpense())
 
     @GetMapping("/{name}")
@@ -32,8 +33,19 @@ class ExpenseController(@Autowired
         = ResponseEntity.ok(expenseService.getExpenseByName(name))
 
     @DeleteMapping("/{id}")
-    fun deleteExpense(@PathVariable id:String):ResponseEntity<String> {
+    fun deleteExpense(@PathVariable id:String): ResponseEntity<String> {
         expenseService.deleteExpense(id)
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
+
+    @DeleteMapping
+    fun deleteAllExpenses(): ResponseEntity<String> {
+        expenseService.deleteAllExpenses()
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build()
+    }
+
+    @PostMapping("/import")
+    fun importCSV(@RequestParam("file") file: MultipartFile) {
+        expenseService.processCSV(file)
     }
 }

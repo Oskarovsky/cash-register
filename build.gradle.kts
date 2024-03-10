@@ -27,7 +27,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
     // DB
-    implementation("org.mongodb:mongodb-driver-kotlin-coroutine:4.10.1")
 
     // OTHERS
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.5")
