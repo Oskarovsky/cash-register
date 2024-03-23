@@ -1,1 +1,47 @@
-http://localhost:8080/api/expense
+# Fetching all expenses
+GET http://localhost:8083/api/expense/list
+Accept: application/json
+
+###
+
+# Fetching page of expenses
+GET http://localhost:8083/api/expense?
+    date=2024-02-15&
+    category=MEDIA
+
+Accept: application/json
+
+###
+
+// Adding an expense
+POST http://localhost:8083/api/expense
+Content-Type: application/json
+
+{
+  "name": "Składka ZUS 2024/01",
+  "expenseCategory": "BUSINESS",
+  "amount": 1629.86,
+  "customer": "ZUS",
+  "date": "2024-02-15"
+}
+
+###
+
+// Delete all expenses from db
+DELETE http://localhost:8083/api/expense
+
+###
+
+POST http://localhost:8083/api/expense/import
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="file.csv"
+
+// The 'expenses.txt' file will be uploaded
+< expenses.csv
+--boundary
+Content-Disposition: form-data; name="advertType"
+
+1
+--boundary

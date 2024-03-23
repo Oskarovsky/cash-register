@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import mu.KotlinLogging
 import org.bson.types.ObjectId
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.web.multipart.MultipartFile
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -20,6 +22,16 @@ class ExpenseService(
 
     private val logger = KotlinLogging.logger {}
 
+    fun getAllExpense(): List<Expense> = expenseRepository.findAll()
+
+    fun getExpenseByName(name: String): Expense
+        = expenseRepository
+                .findByName(name)
+                .orElseThrow{ throw RuntimeException("Cannot find Expense by Name") }
+
+    fun getPage(date: LocalDate?, category: ExpenseCategory?, pageable: Pageable): Page<Expense>
+        = expenseRepository.findByDateAndExpenseCategory(date, category, pageable)
+
     fun addExpense(expense: Expense): Expense
         = expenseRepository.insert(expense)
 
@@ -32,13 +44,6 @@ class ExpenseService(
         savedExpense.amount=expense.amount
         expenseRepository.save(savedExpense)
     }
-
-    fun getAllExpense(): List<Expense> = expenseRepository.findAll()
-
-    fun getExpenseByName(name:String): Expense
-        = expenseRepository
-                .findByName(name)
-                .orElseThrow{ throw RuntimeException("Cannot find Expense by Name") }
 
     fun deleteExpense(id:String)
         = expenseRepository.deleteById(ObjectId(id))
